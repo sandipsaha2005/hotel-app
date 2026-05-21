@@ -13,9 +13,9 @@ import java.util.List;
 public class BookingService {
     private final BookingRepository bookingRepository;
 
-    public List<BookingDto> listHotels() {
+    public List<BookingDto> listHotels(String username) {
         return bookingRepository
-                .findAll()
+                .findByUsername(username)
                 .stream()
                 .map(booking -> new BookingDto(
                         booking.getHotelId(),
@@ -24,11 +24,12 @@ public class BookingService {
                 .toList();
     }
 
-    public String bookHotel(Long hotelId, Long rooms) {
+    public String bookHotel(Long hotelId, Long rooms, String username) {
         BookingEntity booking = new BookingEntity();
 
         booking.setHotelId(hotelId);
         booking.setRooms(rooms);
+        booking.setUsername(username);
 
         bookingRepository.save(booking);
         return "Booking created";
