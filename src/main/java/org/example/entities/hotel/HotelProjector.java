@@ -1,4 +1,4 @@
-package org.example.hotel;
+package org.example.entities.hotel;
 
 @FunctionalInterface
 public interface HotelProjector<T> {

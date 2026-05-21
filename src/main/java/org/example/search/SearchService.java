@@ -1,20 +1,21 @@
 package org.example.search;
 
-import org.example.hotel.HotelDto;
-import org.example.hotel.HotelEntity;
-import org.example.hotel.HotelRepositary;
+import lombok.AllArgsConstructor;
+import org.example.entities.hotel.HotelDto;
+import org.example.entities.hotel.HotelEntity;
+import org.example.entities.hotel.HotelRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class SearchService {
 
-    @Autowired
-    HotelRepositary hotelRepositary;
+    private HotelRepositary hotelRepositary;
 
-    SearchService(){
+    private void init() {
         HotelEntity hotel1 = new HotelEntity(
                 null,
                 "Sea View Resort",
@@ -44,9 +45,8 @@ public class SearchService {
         hotelRepositary.save(hotel3);
     }
 
-
     public List<HotelDto> searchHotels(String city){
-
+        this.init();
 
 //        List<HotelDto> hotels = List.of(
 //                new HotelDto(2L, "Siri's Hotel1", "vizag", 500.30),
