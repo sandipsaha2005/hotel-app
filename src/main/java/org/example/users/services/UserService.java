@@ -1,5 +1,7 @@
 package org.example.users.services;
 
+import org.example.users.dto.LoginResponse;
+import org.example.users.dto.RegisterResponse;
 import org.example.users.dto.UserDto;
 import org.example.users.entity.User;
 import org.example.users.repository.UserRepo;
@@ -13,10 +15,28 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User add(UserDto userDto) {
-        User user = new User();
-        user.setName(userDto.username());
-        user.setPassword(userDto.password());
-       return userRepo.save(user);
+    public RegisterResponse register(UserDto userDto) {
+        User currentUser = userRepo.findByName(userDto.username());
+        System.out.println(currentUser);
+        if (currentUser == null) {
+            User user = new User();
+            user.setName(userDto.username());
+            user.setPassword(userDto.password());
+
+            return new RegisterResponse(userRepo.save(user), "Register successful");
+        }
+
+        return new RegisterResponse(null, "username already exist");
+    }
+
+    public LoginResponse login(UserDto userDto) {
+        User currentUser = userRepo.findByName(userDto.username());
+        if (currentUser == null) {
+            return new LoginResponse("invalid username");
+        }
+        if (currentUser.getPassword().equals(userDto.password()) && currentUser.getName().equals(userDto.username())) {
+            return new LoginResponse("Login successful");
+        }
+        return new LoginResponse("invalid crenditials");
     }
 }
