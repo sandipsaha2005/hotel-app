@@ -1,4 +1,4 @@
 package org.example.booking.dto;
 
-public record BookingDto( Long userId, Long hotelId) {
+public record BookingDto(String username, Long hotelId, Long id, int rooms) {
 }

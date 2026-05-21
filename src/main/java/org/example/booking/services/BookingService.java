@@ -7,6 +7,7 @@ import org.example.entities.booking.BookingEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,13 +19,15 @@ public class BookingService {
                 .findByUsername(username)
                 .stream()
                 .map(booking -> new BookingDto(
+                        booking.getUsername(),
                         booking.getHotelId(),
+                        booking.getId(),
                         booking.getRooms()
-                ))
+                        ))
                 .toList();
     }
 
-    public String bookHotel(Long hotelId, Long rooms, String username) {
+    public String bookHotel(Long hotelId, int rooms, String username) {
         BookingEntity booking = new BookingEntity();
 
         booking.setHotelId(hotelId);
@@ -33,5 +36,10 @@ public class BookingService {
 
         bookingRepository.save(booking);
         return "Booking created";
+    }
+
+    public BookingDto getInfo(Long id) {
+       BookingEntity byId = bookingRepository.findById(id).orElseThrow();
+        return new BookingDto(byId.getUsername(), byId.getHotelId(), byId.getId(), byId.getRooms());
     }
 }

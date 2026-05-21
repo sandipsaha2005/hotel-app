@@ -17,5 +17,5 @@ public class BookingEntity {
     private Long hotelId;
 
     private String username;
-    private Long rooms;
+    private int rooms;
 }

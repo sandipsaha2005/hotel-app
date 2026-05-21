@@ -1,6 +1,7 @@
 package org.example.booking.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.example.booking.dto.BookingDto;
 import org.example.booking.dto.BookingRequest;
 import org.example.booking.services.BookingService;
@@ -32,4 +33,9 @@ public class BookingControllers {
         return ResponseEntity.ok(s);
     }
 
+    @GetMapping("/bookings/{id}/recipt.pdf")
+    public ResponseEntity<BookingDto> downloadReceipt(@PathVariable Long id){
+        BookingDto info = bookingService.getInfo(id);
+        return ResponseEntity.ok(info);
+    }
 }
