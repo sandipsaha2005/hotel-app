@@ -3,9 +3,12 @@ spring:
     name: hotel
 
   datasource:
-    url: jdbc:postgresql://postgres:5432/hotel
-    username: postgres
-    password: password
+#    url: jdbc:postgresql://localhost:5432/sandipsaha
+      url: jdbc:postgresql://postgres:5432/hotel
+#    username: sandipsaha
+      username: postgres
+#    password: Biltu@123
+      password: password
 
   jpa:
     hibernate:
