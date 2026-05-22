@@ -23,7 +23,7 @@ services:
     networks:
       - backend
     deploy:
-      replicas: 5
+      replicas: 10
 
   postgres:
     image: postgres:16

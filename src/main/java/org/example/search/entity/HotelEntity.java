@@ -1,4 +1,4 @@
-package org.example.entities.hotel;
+package org.example.search.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,9 @@
-package org.example.search;
+package org.example.search.service;
 
 import lombok.AllArgsConstructor;
-import org.example.entities.hotel.HotelDto;
-import org.example.entities.hotel.HotelEntity;
-import org.example.entities.hotel.HotelRepositary;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.search.dto.HotelDto;
+import org.example.search.entity.HotelEntity;
+import org.example.search.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchService {
 
-    private HotelRepositary hotelRepositary;
+    private HotelRepository hotelRepository;
 
     private void init() {
 
@@ -42,12 +41,12 @@ public class SearchService {
 
         );
 
-        hotelRepositary.saveAll(hotels);
+        hotelRepository.saveAll(hotels);
     }
     public List<HotelDto> searchHotels(String city){
 //        this.init();
 
-        List<HotelDto> hotels= hotelRepositary.findByCity(city)
+        List<HotelDto> hotels= hotelRepository.findByCity(city)
                 .stream()
                 .map(hotel -> new HotelDto(
                         hotel.getId(),

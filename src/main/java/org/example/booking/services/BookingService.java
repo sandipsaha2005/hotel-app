@@ -3,11 +3,10 @@ package org.example.booking.services;
 import lombok.AllArgsConstructor;
 import org.example.booking.dto.BookingDto;
 import org.example.booking.respsitory.BookingRepository;
-import org.example.entities.booking.BookingEntity;
+import org.example.booking.entity.BookingEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

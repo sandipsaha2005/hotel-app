@@ -1,8 +1,8 @@
-package org.example.search;
+package org.example.search.controller;
 
 import lombok.AllArgsConstructor;
-import org.example.entities.hotel.HotelDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.search.dto.HotelDto;
+import org.example.search.service.SearchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
