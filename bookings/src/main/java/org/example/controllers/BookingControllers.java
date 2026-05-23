@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 
 import org.springframework.security.core.Authentication;
@@ -20,14 +21,14 @@ public class BookingControllers {
     private final org.example.services.BookingService bookingService;
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<BookingDto>> listBookings(Authentication authentication) {
+    public ResponseEntity<List<BookingDto>> listBookings(Authentication authentication) throws JsonProcessingException {
         String username = authentication.getName();
         List<BookingDto> bookings = bookingService.listHotels(username);
         return ResponseEntity.ok(bookings);
     }
 
     @PostMapping("/bookings")
-    public ResponseEntity<String> bookHotel(Authentication authentication, @RequestBody BookingRequest request) {
+    public ResponseEntity<String> bookHotel(Authentication authentication, @RequestBody BookingRequest request) throws JsonProcessingException {
         String name = authentication.getName();
         String s = bookingService.bookHotel(request.hotel_id(), request.rooms(), name);
         return ResponseEntity.ok(s);

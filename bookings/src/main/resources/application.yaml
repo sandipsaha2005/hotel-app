@@ -1,6 +1,10 @@
 spring:
   application:
     name: hotel
+  data:
+    redis:
+      port: 6379
+      host: redis
 
   datasource:
 #    url: jdbc:postgresql://localhost:5432/hotel
@@ -21,4 +25,3 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 kind: Application
-

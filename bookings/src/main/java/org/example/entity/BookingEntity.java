@@ -20,4 +20,5 @@ public class BookingEntity {
 
     private String username;
     private int rooms;
+    private String status;
 }
