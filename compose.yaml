@@ -42,6 +42,23 @@ services:
     networks:
       - backend
 
+  search-service:
+    build:
+      context: ./search_service_js
+    container_name: search-service-container
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - backend
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
   postgres:
     image: postgres:16
     container_name: postgresdb
@@ -56,6 +73,13 @@ services:
     ports:
       - "5432:5432"
 
+    networks:
+      - backend
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
     networks:
       - backend
 
