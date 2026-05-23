@@ -10,48 +10,48 @@ services:
     depends_on:
       - user-service
       - booking-service
+      - search-service
     networks:
       - backend
 
   user-service:
     build:
       context: ./users
-    container_name: user-service-container
+    deploy:
+      replicas: 3
     depends_on:
       - postgres
     networks:
       - backend
-
-    environment:
-     POSTGRES_USER: postgres
-     POSTGRES_PASSWORD: password
-     POSTGRES_DB: hotel
-
-  booking-service:
-    build:
-      context: ./bookings
-    container_name: booking-service-container
-    depends_on:
-      - postgres
-
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: hotel
 
+  booking-service:
+    build:
+      context: ./bookings
+    deploy:
+      replicas: 2
+    depends_on:
+      - postgres
     networks:
       - backend
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel
 
   search-service:
     build:
       context: ./search_service_js
-    container_name: search-service-container
+    deploy:
+      replicas: 2
     depends_on:
       - postgres
       - redis
     networks:
       - backend
-
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -64,15 +64,12 @@ services:
     container_name: postgresdb
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: hotel
-
     ports:
       - "5432:5432"
-
     networks:
       - backend
 
@@ -84,6 +81,7 @@ services:
       - backend
 
 volumes:
-    postgres_data:
+  postgres_data:
+
 networks:
-   backend:
+  backend:
