@@ -8,8 +8,8 @@ export const createApp = () => {
 
   app.use(logger());
 
-  app.get("/api/search/hotels/:city", async (c) => {
-    const city = await c.req.param("city");
+  app.get("/api/search/hotels", async (c) => {
+    const city = c.req.query('city');
 
     try {
       const cacheData = await getCache(city);
