@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchService {
 
-    private HotelRepository hotelRepository;
+    private HotelRepository hotelRepositary;
 
     private void init() {
 
@@ -41,12 +41,12 @@ public class SearchService {
 
         );
 
-        hotelRepository.saveAll(hotels);
+        hotelRepositary.saveAll(hotels);
     }
     public List<HotelDto> searchHotels(String city){
 //        this.init();
 
-        List<HotelDto> hotels= hotelRepository.findByCity(city)
+        List<HotelDto> hotels= hotelRepositary.findByCity(city)
                 .stream()
                 .map(hotel -> new HotelDto(
                         hotel.getId(),

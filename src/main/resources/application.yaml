@@ -3,12 +3,11 @@ spring:
     name: hotel
 
   datasource:
-#    url: jdbc:postgresql://localhost:5432/sandipsaha
-      url: jdbc:postgresql://postgres:5432/hotel
-#    username: sandipsaha
-      username: postgres
-#    password: Biltu@123
-      password: password
+    url: jdbc:postgresql://localhost:5432/hotel
+    #      url: jdbc:postgresql://postgres:5432/hotel
+    password: Karthik@05
+    #      password: password
+    username: postgres
 
   jpa:
     hibernate:
@@ -20,3 +19,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+kind: Application
+server:
+  port: 3000

@@ -1,11 +1,12 @@
-package org.example.booking.controllers;
+package org.example.controllers;
 
 import lombok.AllArgsConstructor;
-import org.example.booking.dto.BookingDto;
-import org.example.booking.dto.BookingRequest;
-import org.example.booking.services.BookingService;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.Authentication;
+import org.example.dto.BookingDto;
+import org.example.dto.BookingRequest;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingControllers {
 
-    private final BookingService bookingService;
+    private final org.example.services.BookingService bookingService;
 
     @GetMapping("/bookings")
     public ResponseEntity<List<BookingDto>> listBookings(Authentication authentication) {
@@ -32,7 +33,7 @@ public class BookingControllers {
         return ResponseEntity.ok(s);
     }
 
-    @GetMapping("/bookings/{id}/recipt.pdf")
+    @GetMapping("/bookings/{id}/receipt.pdf")
     public ResponseEntity<BookingDto> downloadReceipt(@PathVariable Long id){
         BookingDto info = bookingService.getInfo(id);
         return ResponseEntity.ok(info);

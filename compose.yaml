@@ -1,33 +1,52 @@
 services:
+
   nginx:
     image: nginx:latest
     container_name: nginx-loadbalancer
-
     ports:
       - "3000:80"
-
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-
     depends_on:
-      - server
-
+      - user-service
+      - booking-service
     networks:
       - backend
 
-  server:
-    build: .
-
+  user-service:
+    build:
+      context: ./users
+    container_name: user-service-container
     depends_on:
       - postgres
     networks:
       - backend
-    deploy:
-      replicas: 10
+
+    environment:
+     POSTGRES_USER: postgres
+     POSTGRES_PASSWORD: password
+     POSTGRES_DB: hotel
+
+  booking-service:
+    build:
+      context: ./bookings
+    container_name: booking-service-container
+    depends_on:
+      - postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel
+
+    networks:
+      - backend
 
   postgres:
     image: postgres:16
-    container_name: postgres-db
+    container_name: postgresdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
     environment:
       POSTGRES_USER: postgres
@@ -37,14 +56,10 @@ services:
     ports:
       - "5432:5432"
 
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
     networks:
       - backend
 
 volumes:
-  postgres_data:
-
+    postgres_data:
 networks:
-  backend:
+   backend:

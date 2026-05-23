@@ -1,11 +1,11 @@
-package org.example.users.services;
+package org.example.services;
 
+import org.example.dto.LoginResponse;
+import org.example.dto.RegisterResponse;
+import org.example.dto.UserDto;
+import org.example.entity.User;
 import org.example.jwt.JwtService;
-import org.example.users.dto.LoginResponse;
-import org.example.users.dto.RegisterResponse;
-import org.example.users.dto.UserDto;
-import org.example.users.entity.User;
-import org.example.users.repository.UserRepo;
+import org.example.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 @Service

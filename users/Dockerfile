@@ -1,6 +1,4 @@
 FROM gradle:9.5.0-jdk25 AS builder
-RUN apt update && apt install -y tree
-
 WORKDIR /app
 COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle
