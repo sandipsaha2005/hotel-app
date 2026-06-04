@@ -80,6 +80,20 @@ services:
     networks:
       - backend
 
+  worker-service:
+    build:
+      context: ./worker_service
+    deploy:
+      replicas: 5
+    networks:
+     - backend
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
 volumes:
   postgres_data:
 

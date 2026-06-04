@@ -8,6 +8,7 @@ import org.example.entity.BookingEntity;
 import org.example.respsitory.BookingRepository;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingService {
     private final BookingRepository bookingRepository;
-    private final RedisTemplate<Object, Object> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
     public List<BookingDto> listHotels(String username)  {
         return bookingRepository
@@ -26,7 +27,8 @@ public class BookingService {
                         booking.getUsername(),
                         booking.getHotelId(),
                         booking.getId(),
-                        booking.getRooms()
+                        booking.getRooms(),
+                        booking.getStatus()
                 ))
                 .toList();
     }
@@ -40,6 +42,7 @@ public class BookingService {
         booking.setStatus("PENDING");
 
         bookingRepository.save(booking);
+        System.out.println("booking: " +booking);
         String bookingDetails = new ObjectMapper().writeValueAsString(booking);
 
         redisTemplate.opsForList().leftPush("pdf-generator", bookingDetails);
@@ -48,6 +51,6 @@ public class BookingService {
 
     public BookingDto getInfo(Long id) {
         BookingEntity byId = bookingRepository.findById(id).orElseThrow();
-        return new BookingDto(byId.getUsername(), byId.getHotelId(), byId.getId(), byId.getRooms());
+        return new BookingDto(byId.getUsername(), byId.getHotelId(), byId.getId(), byId.getRooms(),byId.getStatus());
     }
 }
