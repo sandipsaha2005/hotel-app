@@ -20,7 +20,7 @@ export const createApp = () => {
       await new Promise((res, rej) => {
         setTimeout(() => {
           res(1);
-        }, 5000);
+        }, 2000);
       });
 
       const res = await pool.query("SELECT * FROM hotels WHERE city = $1", [
